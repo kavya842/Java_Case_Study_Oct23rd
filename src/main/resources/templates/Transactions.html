@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #243247;
+            margin: 30px;
+        }
+
+        h1 { color: #173e70; }
+
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #d8e1ee;
+            text-align: left;
+        }
+
+        th {
+            background: #173e70;
+            color: white;
+        }
+
+        .deposit { color: #16803c; }
+        .withdrawal { color: #b42318; }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Transaction History</h1>
+
+<div class="table-container">
+    <table>
+        <thead>
+        <tr>
+            <th>Transaction ID</th>
+            <th>Type</th>
+            <th>Amount (₹)</th>
+            <th>Date &amp; Time</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="transaction : ${transactions}">
+            <td th:text="${transaction.transactionID}"></td>
+
+            <td
+                    th:text="${transaction.type}"
+                    th:classappend="${transaction.type == 'DEPOSIT'} ? 'deposit' : 'withdrawal'">
+            </td>
+
+            <td th:text="${transaction.amount}"></td>
+
+            <td th:text="${transaction.timestamp}"></td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(transactions)}">
+            <td colspan="4">No transactions found.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<a class="back" th:href="@{/dashboard}">
+    ← Back to Dashboard
+</a>
+
+</body>
+</html>

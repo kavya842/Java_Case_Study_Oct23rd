@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking System Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f7fb;
+            color: #243247;
+        }
+
+        h1, h2 {
+            color: #173e70;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            max-width: 900px;
+            margin-top: 25px;
+        }
+
+        .service {
+            display: block;
+            padding: 22px;
+            background: white;
+            border: 1px solid #d8e1ee;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #173e70;
+            font-weight: bold;
+        }
+
+        .service:hover {
+            background: #e7f0ff;
+        }
+
+        .logout {
+            display: inline-block;
+            margin-top: 25px;
+            color: #b42318;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Welcome to Banking System!</h1>
+<h2>Dashboard</h2>
+
+<p>
+    Hello,
+    <strong th:text="${session.username}">User</strong>!
+    You have successfully logged in.
+</p>
+
+<h3>Banking Services</h3>
+
+<div class="services">
+
+    <a class="service" th:href="@{/account}">
+        View Account Details
+    </a>
+
+    <a class="service" th:href="@{/deposit}">
+        Deposit Money
+    </a>
+
+    <a class="service" th:href="@{/withdraw}">
+        Withdraw Money
+    </a>
+
+    <a class="service" th:href="@{/transactions}">
+        View Transactions
+    </a>
+
+    <a class="service" th:href="@{/beneficiaries}">
+        Manage Beneficiaries
+    </a>
+
+</div>
+
+<a class="logout" th:href="@{/logout}">Logout</a>
+
+</body>
+</html>

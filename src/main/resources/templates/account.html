@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #243247;
+            margin: 40px;
+        }
+        .card {
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000012;
+        }
+        h1 { color: #173e70; }
+        .balance {
+            color: #16803c;
+            font-size: 26px;
+            font-weight: bold;
+        }
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            color: #173e70;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Account Details</h1>
+
+    <p><strong>Customer ID:</strong>
+        <span th:text="${customer.customerID}"></span>
+    </p>
+
+    <p><strong>Full Name:</strong>
+        <span th:text="${customer.name}"></span>
+    </p>
+
+    <p><strong>Address:</strong>
+        <span th:text="${customer.address}"></span>
+    </p>
+
+    <p><strong>Contact:</strong>
+        <span th:text="${customer.contact}"></span>
+    </p>
+
+    <p><strong>Account Number:</strong>
+        <span th:text="${customer.accountNumber}"></span>
+    </p>
+
+    <p>Available Balance</p>
+    <p class="balance">
+        ₹<span th:text="${customer.balance}"></span>
+    </p>
+
+    <a class="back" th:href="@{/dashboard}">
+        ← Back to Dashboard
+    </a>
+</div>
+
+</body>
+</html>

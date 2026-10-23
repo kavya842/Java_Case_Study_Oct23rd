@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Beneficiaries</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #243247;
+            margin: 30px;
+        }
+
+        h1, h2 { color: #173e70; }
+
+        .card {
+            max-width: 650px;
+            margin-bottom: 25px;
+            padding: 22px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px #00000012;
+        }
+
+        label {
+            display: block;
+            margin: 12px 0 6px;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #ccd5e0;
+            border-radius: 6px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin-top: 12px;
+            background: #173e70;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .delete {
+            background: #b42318;
+            margin-top: 0;
+        }
+
+        .message { color: #16803c; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #d8e1ee;
+            text-align: left;
+        }
+
+        th {
+            background: #173e70;
+            color: white;
+        }
+
+        .table-container { overflow-x: auto; }
+
+        .back { display: inline-block; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<h1>Manage Beneficiaries</h1>
+
+<p class="message"
+   th:if="${message}"
+   th:text="${message}"></p>
+
+<div class="card">
+    <h2>Add Beneficiary</h2>
+
+    <form th:action="@{/beneficiaries/add}" method="post">
+        <label for="name">Beneficiary Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="accountNumber">Account Number</label>
+        <input type="text" id="accountNumber"
+               name="accountNumber" required>
+
+        <label for="bankDetails">Bank Name or Details</label>
+        <input type="text" id="bankDetails"
+               name="bankDetails">
+
+        <button type="submit">Add Beneficiary</button>
+    </form>
+</div>
+
+<h2>Saved Beneficiaries</h2>
+
+<div class="table-container">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Account Number</th>
+            <th>Bank</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="beneficiary : ${beneficiaries}">
+            <td th:text="${beneficiary.beneficiaryID}"></td>
+            <td th:text="${beneficiary.name}"></td>
+            <td th:text="${beneficiary.accountNumber}"></td>
+            <td th:text="${beneficiary.bankDetails}"></td>
+            <td>
+                <form th:action="@{/beneficiaries/delete}"
+                      method="post">
+                    <input type="hidden"
+                           name="beneficiaryID"
+                           th:value="${beneficiary.beneficiaryID}">
+                    <button class="delete" type="submit">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(beneficiaries)}">
+            <td colspan="5">No beneficiaries added yet.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<a class="back" th:href="@{/dashboard}">
+    ← Back to Dashboard
+</a>
+
+</body>
+</html>
